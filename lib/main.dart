@@ -5,9 +5,17 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // final double _inputUser = 0;
+  // final double _kelvin = 0;
+  // final double _reamour = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,10 +26,10 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Konverter Suhu'),
+          title: const Text('Konverter Suhu'),
         ),
         body: Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           child: Column(
             children: [
               TextFormField(
@@ -32,43 +40,36 @@ class MyApp extends StatelessWidget {
                   FilteringTextInputFormatter.digitsOnly
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 250),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30),
-                    child: Column(
-                      children: [
-                        Text("Suhu dalam Kelvin"),
-                        Text(
-                          "150",
-                          style: TextStyle(fontSize: 40),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Column(
-                      children: [
-                        Text("Suhu dalam Reamor"),
-                        Text("200", style: TextStyle(fontSize: 40))
-                      ],
-                    ),
-                  )
-                ]),
+              const SizedBox(
+                height: 250,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 260),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(50),
-                  ),
-                  onPressed: () {},
-                  child: Text('Konversi Suhu'),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                Column(
+                  children: const [
+                    Text("Suhu dalam Kelvin"),
+                    Text(
+                      "150",
+                      style: TextStyle(fontSize: 40),
+                    )
+                  ],
                 ),
-              )
+                Column(
+                  children: const [
+                    Text("Suhu dalam Reamor"),
+                    Text("200", style: TextStyle(fontSize: 40))
+                  ],
+                ),
+              ]),
+              const SizedBox(
+                height: 260,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                ),
+                onPressed: () {},
+                child: const Text('Konversi Suhu'),
+              ),
             ],
           ),
         ),
