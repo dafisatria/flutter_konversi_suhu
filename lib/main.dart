@@ -13,9 +13,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // final double _inputUser = 0;
-  // final double _kelvin = 0;
-  // final double _reamour = 0;
+  TextEditingController inputUser = TextEditingController();
+
+  double _inputUser = 0.0;
+  double _kelvin = 0.0;
+  double _reamour = 0.0;
+
+  void konversiSuhu() {
+    setState(() {
+      _inputUser = double.parse(inputUser.text);
+      _reamour = (4 / 5) * _inputUser;
+      _kelvin = 273 + _inputUser;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,8 +42,10 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           margin: const EdgeInsets.all(8),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextFormField(
+                controller: inputUser,
                 decoration: const InputDecoration(
                     hintText: 'Masukkan Suhu Dalam Celcius'),
                 keyboardType: TextInputType.number,
@@ -40,34 +53,34 @@ class _MyAppState extends State<MyApp> {
                   FilteringTextInputFormatter.digitsOnly
                 ],
               ),
-              const SizedBox(
-                height: 250,
-              ),
+              // const SizedBox(
+              //   height: 250,
+              // ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 Column(
-                  children: const [
-                    Text("Suhu dalam Kelvin"),
+                  children: [
+                    const Text("Suhu dalam Kelvin"),
                     Text(
-                      "150",
-                      style: TextStyle(fontSize: 40),
+                      "$_kelvin",
+                      style: const TextStyle(fontSize: 40),
                     )
                   ],
                 ),
                 Column(
-                  children: const [
-                    Text("Suhu dalam Reamor"),
-                    Text("200", style: TextStyle(fontSize: 40))
+                  children: [
+                    const Text("Suhu dalam Reamor"),
+                    Text('$_reamour', style: const TextStyle(fontSize: 40))
                   ],
                 ),
               ]),
-              const SizedBox(
-                height: 260,
-              ),
+              // const SizedBox(
+              //   height: 260,
+              // ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
                 ),
-                onPressed: () {},
+                onPressed: konversiSuhu,
                 child: const Text('Konversi Suhu'),
               ),
             ],
