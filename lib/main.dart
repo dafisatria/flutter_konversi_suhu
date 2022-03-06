@@ -44,49 +44,79 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextFormField(
-                controller: inputUser,
-                decoration: const InputDecoration(
-                    hintText: 'Masukkan Suhu Dalam Celcius'),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-              ),
-              // const SizedBox(
-              //   height: 250,
-              // ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                Column(
-                  children: [
-                    const Text("Suhu dalam Kelvin"),
-                    Text(
-                      "$_kelvin",
-                      style: const TextStyle(fontSize: 40),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text("Suhu dalam Reamor"),
-                    Text('$_reamour', style: const TextStyle(fontSize: 40))
-                  ],
-                ),
-              ]),
-              // const SizedBox(
-              //   height: 260,
-              // ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                onPressed: konversiSuhu,
-                child: const Text('Konversi Suhu'),
-              ),
+              input(inputUser: inputUser),
+              result(kelvin: _kelvin, reamour: _reamour),
+              convert(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  ElevatedButton convert() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size.fromHeight(50),
+      ),
+      onPressed: konversiSuhu,
+      child: const Text('Konversi Suhu'),
+    );
+  }
+}
+
+class result extends StatelessWidget {
+  const result({
+    Key? key,
+    required double kelvin,
+    required double reamour,
+  })  : _kelvin = kelvin,
+        _reamour = reamour,
+        super(key: key);
+
+  final double _kelvin;
+  final double _reamour;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      Column(
+        children: [
+          const Text("Suhu dalam Kelvin"),
+          Text(
+            "$_kelvin",
+            style: const TextStyle(fontSize: 40),
+          )
+        ],
+      ),
+      Column(
+        children: [
+          const Text("Suhu dalam Reamor"),
+          Text('$_reamour', style: const TextStyle(fontSize: 40))
+        ],
+      ),
+    ]);
+  }
+}
+
+class input extends StatelessWidget {
+  const input({
+    Key? key,
+    required this.inputUser,
+  }) : super(key: key);
+
+  final TextEditingController inputUser;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: inputUser,
+      decoration:
+          const InputDecoration(hintText: 'Masukkan Suhu Dalam Celcius'),
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
     );
   }
 }
